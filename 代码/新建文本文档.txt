@@ -1,0 +1,82 @@
+
+Page segmentation modes:
+
+  0    Orientation and script detection (OSD) only.
+
+  1    Automatic page segmentation with OSD.
+
+  2    Automatic page segmentation, but no OSD, or OCR.
+
+  3    Fully automatic page segmentation, but no OSD. (Default)
+
+  4    Assume a single column of text of variable sizes.
+
+  5    Assume a single uniform block of vertically aligned text.
+
+  6    Assume a single uniform block of text.
+
+  7    Treat the image as a single text line.
+
+  8    Treat the image as a single word.
+
+  9    Treat the image as a single word in a circle.
+
+ 10    Treat the image as a single character.
+
+ 11    Sparse text. Find as much text as possible in no particular order.
+
+ 12    Sparse text with OSD.
+
+ 13    Raw line. Treat the image as a single text line,
+
+                        bypassing hacks that are Tesseract-specific.
+
+
+
+
+页面分割模式:
+
+0方向和脚本检测(OSD)。
+
+自动页面分割与OSD。
+
+自动页面分割，但没有OSD，或OCR。
+
+3 .全自动页面分割，无OSD。
+(默认)
+
+假设有一列大小可变的文本。
+
+假设有一个垂直对齐的文本块。
+
+假设有一个统一的文本块。
+
+将图像视为单个文本行。
+
+把图像看成一个单词。
+
+把图像看成一个圆圈里的单个单词。
+
+将图像视为单个字符。
+
+11稀疏的文本。
+尽可能多地查找没有特定顺序的文本。
+
+12稀疏文本与OSD。
+
+13日生。
+将图像视为单个文本行，
+
+绕过特定于tesseract的黑客。
+
+
+第一个参数是寻找轮廓的图像；
+第二个参数表示轮廓的检索模式，有四种（本文介绍的都是新的cv2接口）：
+    cv2.RETR_EXTERNAL表示只检测外轮廓
+    cv2.RETR_LIST检测的轮廓不建立等级关系
+    cv2.RETR_CCOMP建立两个等级的轮廓，上面的一层为外边界，里面的一层为内孔的边界信息。如果内孔内还有一个连通物体，这个物体的边界也在顶层。
+    cv2.RETR_TREE建立一个等级树结构的轮廓。
+第三个参数method为轮廓的近似办法
+    cv2.CHAIN_APPROX_NONE存储所有的轮廓点，相邻的两个点的像素位置差不超过1，即max（abs（x1-x2），abs（y2-y1））==1
+    cv2.CHAIN_APPROX_SIMPLE压缩水平方向，垂直方向，对角线方向的元素，只保留该方向的终点坐标，例如一个矩形轮廓只需4个点来保存轮廓信息
+    cv2.CHAIN_APPROX_TC89_L1，CV_CHAIN_APPROX_TC89_KCOS使用teh-Chinl chain 近似算法
